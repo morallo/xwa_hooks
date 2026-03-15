@@ -2692,8 +2692,8 @@ int DrawConcoursePlanetHook(int* params)
 
 		if (currentMissionIndex != -1)
 		{
-			const char* missionDirectory = ((const char**)0x00603168)[missionDirectoryId];
-			const char* missionFileName = s_XwaMissionDescriptions[currentMissionIndex].MissionFileName;
+			//const char* missionDirectory = ((const char**)0x00603168)[missionDirectoryId];
+			//const char* missionFileName = s_XwaMissionDescriptions[currentMissionIndex].MissionFileName;
 
 			//char path[256];
 			//sprintf_s(path, "%s\\%s", missionDirectory, missionDirectoryId == 3 ? "temp.tie" : missionFileName);
@@ -3727,6 +3727,14 @@ int LoadFrontPlanetImageHook(int* params)
 
 	if (!g_isPlanetImageLoaded)
 	{
+		const int currentMission = *(int*)0x00ABC970;
+		int currentMissionIndex = GetMissionFileNameById(currentMission);
+
+		if (currentMissionIndex == -1)
+		{
+			return 0;
+		}
+
 		XwaLoadPlanetImage(planetImageIndex);
 	}
 
